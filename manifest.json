@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+
+    "name":             "Socialbit Recipe Calculator",
+    "description":      "This extension adds some redirect buttons to cooking websites",
+    "version":          "0.1",
+
+    "icons":
+    {
+        "128" : "icon-512.png"
+    },
+
+    "content_scripts":
+    [
+        {
+            "matches":
+            [
+                "http://www.chefkoch.de/*"
+            ],
+            "css":        ["style.css"],
+            "js":         ["jquery.1.9.0.min.js", "contentscript.js"],
+            "all_frames": false
+        }
+    ]
+}
