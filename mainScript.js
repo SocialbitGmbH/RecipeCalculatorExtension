@@ -17,13 +17,15 @@ function decodeUrl(str){
 
 if (window.location.host == "www.chefkoch.de") {
 
-  var table = document.getElementsByClassName("incredients")[0];
-  var title = document.getElementsByClassName("page-title")[0];
+  var table       = document.getElementsByClassName("incredients")[0];
+  var title       = document.getElementsByClassName("page-title")[0];
+  var description = document.getElementById("rezept-zubereitung");
   var data  = [];
 
-  if (title !== undefined && table !== undefined) {
+  if (title !== undefined && table !== undefined && description !== undefined) {
     table = table.childNodes[1].childNodes;
     title = title.innerText;
+    description = description.innerText;
 
     for (var x of table) {
       console.log("<<---------->>");
@@ -47,7 +49,7 @@ if (window.location.host == "www.chefkoch.de") {
         } else {
           value = 1;
         }
-        console.log(value);
+        
         if (unit === "") unit = "Stück";
         console.log(value+" "+unit+" | "+text);
         data.push(
@@ -62,7 +64,8 @@ if (window.location.host == "www.chefkoch.de") {
 
     var dataArray = {
       'name' : title,
-      'data' : data
+      'text' : description,
+      'data' : data,
     };
 
     var code  = encodeURL(Base64.encode(JSON.stringify(dataArray)));
