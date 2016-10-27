@@ -1,3 +1,31 @@
 .RCbutton {
-  
+  background          : url("http://localhost/icon-32.png") no-repeat left;
+  background-color    : #5cb58f;
+  color               : #fff !important;
+  text-shadow         : 0px -1px 0px #777;
+  border              : 0;
+  border-radius       : 5px;
+  cursor              : pointer;
+  display             : inline-block;
+  font-family         : Arial;
+  font-size           : 12px;
+  font-weight         : bold;
+  line-height         : normal;
+  overflow            : visible;
+  padding             : 10px 15px 10px 37px;
+  text-decoration     : none;
+  -webkit-appearance  : none;
+  white-space         : nowrap;
+  width               : auto;
+  margin-left         : 10px;
+
+  transition: all 0.3s ease-in; /* explorer 10 */
+  -webkit-transition: all 0.3s ease-in; /* chrome & safari */
+  -moz-transition: all 0.3s ease-in; /* firefox */
+  -o-transition: all 0.3s ease-in; /* opera */
+}
+
+.RCbutton:hover {
+    text-decoration   : none;
+    background-color  : #469B76;
 }
