@@ -31,15 +31,25 @@ if (window.location.host == "www.chefkoch.de") {
       if (x.nodeName == "TR") {
         var amount  = x.childNodes[1].innerText;
         var text    = x.childNodes[3].innerText;
-        var value   = amount.replace(/\D+/, "");
-        var unit    = amount.replace(/\d+/, "").substring(1);
-        if (value === "") {
-          value = 1;
+        var value   = amount.match(/[\d,]+(?:\s[\d/]+)?/);
+        var unit    = amount.replace(/[\d,]+(?:\s[\d/]+)?/, "").substring(1);
+
+        if (Array.isArray(value)) {
+          value = value[0].split(" ");
+          if (value.length == 1) {
+            value = Number(value[0].replace(",", "."));
+          } else {
+            var valueRaw  = Number(value[0]);
+            var value     = value[1].split("/");
+            value         = Number(value[0]) / Number(value[1]);
+            value        += valueRaw;
+          }
         } else {
-          value = Number(value);
+          value = 1;
         }
+        console.log(value);
         if (unit === "") unit = "Stück";
-        console.log(amount+" / "+text);
+        console.log(value+" "+unit+" | "+text);
         data.push(
           {
             'value'       : value,
@@ -62,7 +72,7 @@ if (window.location.host == "www.chefkoch.de") {
     var button        = document.createElement("a");
     button.href       = url;
     button.target     = "_blank";
-    button.className  = "button-green button-refresh";
+    button.className  = "RCbutton";
     button.innerHTML  = "RecipeCalc.io";
 
     form.appendChild(button);
