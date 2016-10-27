@@ -1,6 +1,6 @@
 .RCbutton {
   background          : url("http://localhost/icon-32.png") no-repeat left;
-  background-color    : #5cb58f;
+  background-color    : #00acc1;
   color               : #fff !important;
   text-shadow         : 0px -1px 0px #777;
   border              : 0;
@@ -27,5 +27,5 @@
 
 .RCbutton:hover {
     text-decoration   : none;
-    background-color  : #469B76;
+    background-color  : #0097a7;
 }
