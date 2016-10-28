@@ -32,24 +32,30 @@ if (window.location.host == "www.chefkoch.de") {
 
       if (x.nodeName == "TR") {
         var amount  = x.childNodes[1].innerText;
+        console.log(amount);
         var text    = x.childNodes[3].innerText;
-        var value   = amount.match(/[\d,]+(?:\s[\d/]+)?/);
-        var unit    = amount.replace(/[\d,]+(?:\s[\d/]+)?/, "").substring(1);
+        var value   = amount.match(/[\d,]+(?:\s?[\d/]+)?/);
+        var unit    = amount.replace(/[\d,]+(?:\s?[\d/]+)?/, "").substring(1);
 
         if (Array.isArray(value)) {
           value = value[0].split(" ");
           if (value.length == 1) {
-            value = Number(value[0].replace(",", "."));
+            value = value[0].split("/");
+            if (value.length == 2) {
+              value = Number(value[0]) / Number(value[1]);
+            } else {
+              value = Number(value[0].replace(",", "."));
+            }
           } else {
             var valueRaw  = Number(value[0]);
-            var value     = value[1].split("/");
+            value         = value[1].split("/");
             value         = Number(value[0]) / Number(value[1]);
             value        += valueRaw;
           }
         } else {
           value = 1;
         }
-        
+
         if (unit === "") unit = "Stück";
         console.log(value+" "+unit+" | "+text);
         data.push(
@@ -63,9 +69,10 @@ if (window.location.host == "www.chefkoch.de") {
     }
 
     var dataArray = {
-      'name' : title,
-      'text' : description,
-      'data' : data,
+      'name'   : title,
+      'text'   : description,
+      'source' : window.location.href,
+      'data'   : data,
     };
 
     var code  = encodeURL(Base64.encode(JSON.stringify(dataArray)));
