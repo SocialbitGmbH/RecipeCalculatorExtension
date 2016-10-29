@@ -8,9 +8,14 @@ function encodeURL(str){
     return str.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
 }
 
-function decodeUrl(str){
-    str = (str + '===').slice(0, str.length + (str.length % 4));
-    return str.replace(/-/g, '+').replace(/_/g, '/');
+function generateLink (data) {
+  try {
+    data = encodeURL(Base64.encode(JSON.stringify(data)));
+    return "http://localhost/#share="+data;
+  } catch (e) {
+    alert("Error during encoding..");
+    return false;
+  }
 }
 
 //----<<< Main filtering >>>----\\
@@ -75,17 +80,18 @@ if (window.location.host == "www.chefkoch.de") {
       'data'   : data,
     };
 
-    var code  = encodeURL(Base64.encode(JSON.stringify(dataArray)));
-    var url   = "http://localhost/#"+code;
+    var url   = generateLink(dataArray);
 
-    var form          = document.getElementById("incredientform");
-    var button        = document.createElement("a");
-    button.href       = url;
-    button.target     = "_blank";
-    button.className  = "RCbutton";
-    button.innerHTML  = "RecipeCalc.io";
+    if (url !== false) {
+      var form          = document.getElementById("incredientform");
+      var button        = document.createElement("a");
+      button.href       = url;
+      button.target     = "_blank";
+      button.className  = "RCbutton";
+      button.innerHTML  = "RecipeCalc.io";
 
-    form.appendChild(button);
+      form.appendChild(button);
+    }
   } else {
     console.log("No recipe found");
   }
